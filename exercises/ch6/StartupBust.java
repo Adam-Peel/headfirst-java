@@ -3,7 +3,7 @@ import java.util.ArrayList;
 public class StartupBust {
  private int numOfGuesses = 0; 
  private GameHelper helper = new GameHelper();
- private ArrayList<startups> startups = new ArrayList<Startup>(3);
+ private ArrayList<Startup> startups = new ArrayList<Startup>(3);
   
 private void setUpGame() {
 
