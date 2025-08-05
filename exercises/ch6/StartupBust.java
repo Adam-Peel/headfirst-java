@@ -5,53 +5,55 @@ public class StartupBust {
  private GameHelper helper = new GameHelper();
  private ArrayList<startups> startups = new ArrayList<Startup>(3);
   
-public void setUpGame() {
+private void setUpGame() {
 
-  Startup byteVillageStartup = new Startup();
-  Startup megaTownStartup = new Startup();
-  Startup gigaCityStartup = new Startup();
+  Startup one = new Startup();
+  Startup two = new Startup();
+  Startup three = new Startup();
 
-  byteVillageStartup.name = "byteVillage";
-  megaTownStartup.name = "megaTown";
-  gigaCityStartup.name = "gigaCity";
+  one.setName("poniez");
+  two.setName("hacqi");
+  three.setName("cabista");
 
-  startups.add(byteVillageStartup);
-  startups.add(megaTownStartup);
-  startups.add(gigaCityStartup);
+  startups.add(one);
+  startups.add(two);
+  startups.add(three);
 
-  for (startup startup : startups) {
-    int location = helper.placeStartup();
-    startup.setLocationCells(location);
+  System.out.println("Your goal is to sink three startups");
+  System.out.println("poniez, hacqi, and cabista");
+  System.out.println("Try and sink them in as few guesses as possible");
+  
+  
+  for (Startup startup : startups) {
+    ArrayList<String> newLocation = helper.placeStartup(3);
+    startup.setLocationCells(newLocation);
   };
-
-  System.out.println("Message here");
 }
 
-public void startPlaying() {
+private void startPlaying() {
 
-  while (startups.size > 0) {
-  String guess = System.in.toString("Please make your guess");
-    checkUserGuess(guess);
+  while (!startups.isEmpty()) {
+  String userGuess = helper.getUserInput("Please make your guess");
+    checkUserGuess(userGuess);
   }
+  finishGame();
 }
 
-public void checkUserGuess(String userGuess) {
+private void checkUserGuess(String userGuess) {
   
   numOfGuesses++;
   String result = "miss";
 
 
   // Loop through startups and calls each startups 'checkYourself method'
-  for (let i = 0; i < startups.size; i ++) {
-      if (startups(i).checkYourself(userGuess) == "hit") {
-        result = "hit";
+  for (Startup startupToTest : startups) {
+      result = startupToTest.checkYourself(userGuess);
+      if (result == "hit") {
         break;
       }
-      else if (startups(i).checkYourself(userGuess) == "kill") {
-        result = "kill";
-        startups.remove(i);
+      else if (result == "kill") {
+        startups.remove(startupToTest);
         break;
-
       }
   }
   System.out.println("Your guess was a: " + result);
@@ -67,4 +69,11 @@ public void finishGame() {
 
   System.out.println("You took " + numOfGuesses + " to sink all the ships, " + signOff);
 }
+
+public static void main(String[] args) {
+  StartupBust game = new StartupBust();
+  game.setUpGame();
+  game.startPlaying();
+}
+
 }
