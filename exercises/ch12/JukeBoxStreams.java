@@ -10,9 +10,20 @@ public class JukeBoxStreams {
                                   .collect(Collectors.toList());
 
     System.out.println(rockSongs);
-  }
-}
 
+    List<Song> beatles = songs.stream()
+                              .filter(song -> song.getArtist().contains("Beatles"))     
+                              .collect(Collectors.toList());
+    System.out.println(beatles);
+    
+    List<Song> startsWithH = songs.stream()
+                                  .filter(song -> song.getTitle().startsWith("H"))
+                                  .collect(Collectors.toList());
+
+    System.out.println(startsWithH);                              
+
+}
+}
 
 
 class Songs {
